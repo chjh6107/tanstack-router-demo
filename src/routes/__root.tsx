@@ -12,8 +12,12 @@ export const Route = createRootRoute({
   beforeLoad: ({ location }) => {
     if (location.pathname === "/login") return;
 
-    if (!isAuthenticated())
-      throw redirect({ to: "/login", search: { redirect: location.href } });
+    if (!isAuthenticated()) {
+      const redirectTarget = location.pathname.startsWith("/")
+        ? location.pathname
+        : "/";
+      throw redirect({ to: "/login", search: { redirect: redirectTarget } });
+    }
   },
 });
 

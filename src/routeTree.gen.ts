@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as IndexRouteImport } from './routes/index'
@@ -17,6 +18,11 @@ import { Route as ChildrenHihiRouteImport } from './routes/children/hihi'
 import { Route as ChildrenIdIndexRouteImport } from './routes/children/$id/index'
 import { Route as ChildrenIdDetailRouteImport } from './routes/children/$id/detail'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -55,6 +61,7 @@ const ChildrenIdDetailRoute = ChildrenIdDetailRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
   '/children/hihi': typeof ChildrenHihiRoute
   '/children': typeof ChildrenIndexRoute
   '/children/$id/detail': typeof ChildrenIdDetailRoute
@@ -63,6 +70,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
   '/children/hihi': typeof ChildrenHihiRoute
   '/children': typeof ChildrenIndexRoute
   '/children/$id/detail': typeof ChildrenIdDetailRoute
@@ -73,6 +81,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_layout': typeof LayoutRoute
   '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
   '/children/hihi': typeof ChildrenHihiRoute
   '/children/': typeof ChildrenIndexRoute
   '/children/$id/detail': typeof ChildrenIdDetailRoute
@@ -83,6 +92,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/login'
     | '/children/hihi'
     | '/children'
     | '/children/$id/detail'
@@ -91,6 +101,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/login'
     | '/children/hihi'
     | '/children'
     | '/children/$id/detail'
@@ -100,6 +111,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_layout'
     | '/about'
+    | '/login'
     | '/children/hihi'
     | '/children/'
     | '/children/$id/detail'
@@ -110,6 +122,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LayoutRoute: typeof LayoutRoute
   AboutRoute: typeof AboutRoute
+  LoginRoute: typeof LoginRoute
   ChildrenHihiRoute: typeof ChildrenHihiRoute
   ChildrenIndexRoute: typeof ChildrenIndexRoute
   ChildrenIdDetailRoute: typeof ChildrenIdDetailRoute
@@ -118,6 +131,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -174,6 +194,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LayoutRoute: LayoutRoute,
   AboutRoute: AboutRoute,
+  LoginRoute: LoginRoute,
   ChildrenHihiRoute: ChildrenHihiRoute,
   ChildrenIndexRoute: ChildrenIndexRoute,
   ChildrenIdDetailRoute: ChildrenIdDetailRoute,

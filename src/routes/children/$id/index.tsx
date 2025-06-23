@@ -1,3 +1,4 @@
+import { PageContainer } from "@/components";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/children/$id/")({
@@ -7,5 +8,5 @@ export const Route = createFileRoute("/children/$id/")({
 function RouteComponent() {
   const { id } = Route.useParams();
 
-  return <div>Hello "/children/{id}"!</div>;
+  return <PageContainer>Hello "/children/{id}"!</PageContainer>;
 }
